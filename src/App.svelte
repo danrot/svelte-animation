@@ -26,10 +26,10 @@
     const buttonY = 700;
 
     const targetPositions = [
-        {x: buttonX, y: buttonY - 50},
-        {x: formX + 100, y: formY},
-        {x: bodyX + 100, y: bodyY},
-        {x: htmlX + 100, y: htmlY},
+        {name: "button", x: buttonX, y: buttonY - 50},
+        {name: "form", x: formX + 100, y: formY},
+        {name: "body", x: bodyX + 100, y: bodyY},
+        {name: "html", x: htmlX + 100, y: htmlY},
     ];
 
     const currentTargetX = tweened(targetPositions[0].x);
@@ -39,14 +39,25 @@
 
     $: targetPositionsLength = targetPositions.length;
 
-    setInterval(() => {
-        targetPositionIndex = (targetPositionIndex + 1) % targetPositions.length;
+    $: {
         currentTargetX.set(targetPositions[targetPositionIndex].x);
         currentTargetY.set(targetPositions[targetPositionIndex].y);
-    }, 1000);
+    }
 </script>
 
-<svg width="800" height="1000">
+<style>
+.highlighted {
+    color: red;
+}
+
+button {
+    border: 0;
+    background: transparent;
+    color: inherit;
+}
+</style>
+
+<svg width="800" height="800">
     <Line x1={htmlX} y1={htmlY} x2={bodyX} y2={bodyY} />
     <Node x={htmlX} y={htmlY}>html</Node>
     <Line x1={bodyX} y1={bodyY} x2={formX} y2={formY} />
@@ -61,3 +72,13 @@
     <Line label="target" style="dashed" x1={buttonX} y1={buttonY - 50} x2={eventX} y2={eventY + 50} />
     <Line label="currentTarget" style="dashed" x1={$currentTargetX} y1={$currentTargetY} x2={eventX - 100} y2={eventY} />
 </svg>
+
+<ol>
+    {#each targetPositions as targetPosition, index}
+    <li class:highlighted={targetPositionIndex === index}>
+        <button on:click={() => targetPositionIndex = index}>
+            {targetPosition.name}
+        </button>
+    </li>
+    {/each}
+</ol>
