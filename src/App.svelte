@@ -26,10 +26,10 @@
     const buttonY = 700;
 
     const targetPositions = [
-        {name: "button", x: buttonX, y: buttonY - 50},
-        {name: "form", x: formX + 100, y: formY},
-        {name: "body", x: bodyX + 100, y: bodyY},
-        {name: "html", x: htmlX + 100, y: htmlY},
+        {x: buttonX, y: buttonY - 50},
+        {x: formX + 100, y: formY},
+        {x: bodyX + 100, y: bodyY},
+        {x: htmlX + 100, y: htmlY},
     ];
 
     const currentTargetX = tweened(targetPositions[0].x);
@@ -44,18 +44,6 @@
         currentTargetY.set(targetPositions[targetPositionIndex].y);
     }
 </script>
-
-<style>
-.highlighted {
-    color: red;
-}
-
-button {
-    border: 0;
-    background: transparent;
-    color: inherit;
-}
-</style>
 
 <svg width="800" height="800">
     <Line x1={htmlX} y1={htmlY} x2={bodyX} y2={bodyY} />
@@ -73,12 +61,7 @@ button {
     <Line label="currentTarget" style="dashed" x1={$currentTargetX} y1={$currentTargetY} x2={eventX - 100} y2={eventY} />
 </svg>
 
-<ol>
-    {#each targetPositions as targetPosition, index}
-    <li class:highlighted={targetPositionIndex === index}>
-        <button on:click={() => targetPositionIndex = index}>
-            {targetPosition.name}
-        </button>
-    </li>
-    {/each}
-</ol>
+<div>
+    <button disabled={targetPositionIndex <= 0} on:click={() => targetPositionIndex -= 1}>Previous</button>
+    <button disabled={targetPositionIndex >= targetPositionsLength - 1} on:click={() => targetPositionIndex += 1}>Next</button>
+</div>
