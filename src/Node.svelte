@@ -9,7 +9,7 @@
 <style>
 rect {
     stroke: black;
-    fill: transparent;
+    fill: white;
 }
 
 text {
