@@ -57,8 +57,8 @@
     <Node x={buttonX} y={buttonY}>button</Node>
 
     <Node style="rect" x={eventX} y={eventY}>event</Node>
-    <Line label="target" style="dashed" x1={buttonX} y1={buttonY - 50} x2={eventX} y2={eventY + 50} />
-    <Line label="currentTarget" style="dashed" x1={$currentTargetX} y1={$currentTargetY} x2={eventX - 100} y2={eventY} />
+    <Line label="target" headArrow={true} style="dashed" x1={buttonX} y1={buttonY - 50} x2={eventX} y2={eventY + 50} />
+    <Line label="currentTarget" headArrow={true} style="dashed" x1={$currentTargetX} y1={$currentTargetY} x2={eventX - 100} y2={eventY} />
 </svg>
 
 <div>
